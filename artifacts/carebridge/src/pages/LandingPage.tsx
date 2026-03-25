@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import robertPhoto from "/robert-ngoma.jpeg";
+import zambianFamily from "/zambian-family.jpeg";
 
 const BODY = "'Raleway', sans-serif";
 const SERIF = "'Cormorant Garamond', serif";
@@ -348,7 +349,7 @@ function PageWhy() {
             </div>
           </div>
           <div style={{ background: "var(--cb-sage)", borderRadius: 4, aspectRatio: "4/5", position: "relative", overflow: "hidden" }}>
-            <div style={{ position: "absolute", inset: 0, backgroundImage: "url('https://images.unsplash.com/photo-1531123897727-8f129e1688ce?w=700&q=80')", backgroundSize: "cover", backgroundPosition: "center top", opacity: 0.55 }} />
+            <div style={{ position: "absolute", inset: 0, backgroundImage: `url(${zambianFamily})`, backgroundSize: "cover", backgroundPosition: "center top", opacity: 0.65 }} />
             <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to top, rgba(61,107,79,0.85) 0%, transparent 60%)" }} />
             <div style={{ position: "absolute", bottom: 32, left: 32, right: 32, color: "#fff" }}>
               <h3 style={{ fontFamily: SERIF, fontSize: 28, fontWeight: 300, lineHeight: 1.2, marginBottom: 10 }}>"I needed someone I could trust with my mother."</h3>
