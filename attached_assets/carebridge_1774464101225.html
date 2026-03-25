@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CareBridge — Verified Home Healthcare in Zambia</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --ink: #1a1a18; --ink-light: #4a4a42; --cream: #faf8f3;
+    --warm-white: #f5f3ed; --sage: #3d6b4f; --sage-light: #e8f0eb;
+    --sage-mid: #6a9b7a; --gold: #b8924a; --gold-light: #f5ead8;
+    --border: rgba(26,26,24,0.1); --border-strong: rgba(26,26,24,0.2);
+  }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(--ink); overflow-x: hidden; font-size: 16px; line-height: 1.6; }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 20px 48px;
+    background: rgba(250,248,243,0.92); backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+  .logo { font-family: 'Cormorant Garamond', serif; font-size: 22px; font-weight: 600; letter-spacing: 0.02em; color: var(--ink); text-decoration: none; }
+  .logo span { color: var(--sage); }
+  .logo-sub { font-size: 10px; font-weight: 400; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-light); opacity: 0.6; display: block; margin-top: -4px; padding-left: 1px; }
+  .nav-links { display: flex; gap: 36px; align-items: center; }
+  .nav-links a { font-size: 13px; font-weight: 400; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-light); text-decoration: none; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--sage); }
+  .nav-cta { background: var(--sage); color: #fff !important; padding: 10px 22px; border-radius: 2px; font-size: 12px !important; letter-spacing: 0.1em !important; transition: background 0.2s !important; }
+  .nav-cta:hover { background: #2d5440 !important; }
+
+  /* HERO */
+  .hero { min-height: 100vh; display: grid; grid-template-columns: 1fr 1fr; padding-top: 80px; position: relative; overflow: hidden; }
+  .hero-left { display: flex; flex-direction: column; justify-content: center; padding: 80px 64px 80px 80px; position: relative; z-index: 2; }
+  .hero-eyebrow { display: flex; align-items: center; gap: 10px; margin-bottom: 28px; }
+  .hero-eyebrow span { font-size: 11px; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; color: var(--sage); }
+  .hero-eyebrow::before { content: ''; display: block; width: 32px; height: 1px; background: var(--sage); }
+  .hero h1 { font-family: 'Cormorant Garamond', serif; font-size: clamp(48px, 5.5vw, 78px); font-weight: 300; line-height: 1.08; letter-spacing: -0.02em; color: var(--ink); margin-bottom: 28px; }
+  .hero h1 em { font-style: italic; color: var(--sage); }
+  .hero-sub { font-size: 16px; font-weight: 300; color: var(--ink-light); max-width: 400px; line-height: 1.75; margin-bottom: 48px; }
+  .hero-actions { display: flex; gap: 16px; align-items: center; flex-wrap: wrap; }
+  .btn-primary { background: var(--sage); color: #fff; padding: 15px 32px; border-radius: 2px; font-size: 13px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; text-decoration: none; transition: background 0.2s, transform 0.15s; display: inline-block; }
+  .btn-primary:hover { background: #2d5440; transform: translateY(-1px); }
+  .btn-secondary { color: var(--ink); font-size: 13px; font-weight: 400; letter-spacing: 0.06em; text-transform: uppercase; text-decoration: none; display: flex; align-items: center; gap: 8px; padding: 15px 0; border-bottom: 1px solid var(--border-strong); transition: border-color 0.2s, color 0.2s; }
+  .btn-secondary:hover { color: var(--sage); border-color: var(--sage); }
+  .btn-secondary::after { content: '→'; font-size: 14px; }
+  .hero-stats { display: flex; gap: 40px; margin-top: 60px; padding-top: 40px; border-top: 1px solid var(--border); }
+  .stat-num { font-family: 'Cormorant Garamond', serif; font-size: 36px; font-weight: 600; color: var(--ink); line-height: 1; }
+  .stat-label { font-size: 11px; font-weight: 400; color: var(--ink-light); letter-spacing: 0.06em; text-transform: uppercase; margin-top: 4px; }
+  .hero-right { position: relative; overflow: hidden; background: var(--sage); }
+  .hero-img-overlay { position: absolute; inset: 0; background: linear-gradient(135deg, rgba(61,107,79,0.85) 0%, rgba(26,26,24,0.7) 100%); z-index: 1; }
+  .hero-img-bg { position: absolute; inset: 0; background-image: url('https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=900&q=80'); background-size: cover; background-position: center; opacity: 0.55; }
+  .hero-right-content { position: relative; z-index: 2; height: 100%; display: flex; flex-direction: column; justify-content: flex-end; padding: 48px; }
+  .verification-card { background: rgba(250,248,243,0.95); border-radius: 4px; padding: 24px 28px; max-width: 320px; }
+  .verification-card .card-title { font-size: 11px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-light); margin-bottom: 16px; }
+  .badge-row { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 16px; }
+  .badge { display: flex; align-items: center; gap: 6px; background: var(--sage-light); border-radius: 2px; padding: 6px 10px; font-size: 11px; font-weight: 500; color: var(--sage); letter-spacing: 0.04em; }
+  .badge-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--sage); }
+  .card-desc { font-size: 12px; color: var(--ink-light); line-height: 1.6; }
+
+  /* TRUST STRIP */
+  .trust-strip { background: var(--ink); color: #fff; padding: 18px 80px; display: flex; align-items: center; justify-content: center; gap: 56px; overflow: hidden; }
+  .trust-item { display: flex; align-items: center; gap: 10px; font-size: 12px; font-weight: 400; letter-spacing: 0.06em; text-transform: uppercase; white-space: nowrap; opacity: 0.85; }
+  .trust-dot { width: 4px; height: 4px; border-radius: 50%; background: var(--sage-mid); flex-shrink: 0; }
+
+  /* SECTIONS */
+  section { padding: 100px 80px; }
+  .section-label { display: flex; align-items: center; gap: 10px; font-size: 11px; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; color: var(--sage); margin-bottom: 20px; }
+  .section-label::before { content: ''; display: block; width: 24px; height: 1px; background: var(--sage); }
+  .section-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(36px, 4vw, 58px); font-weight: 300; line-height: 1.1; letter-spacing: -0.02em; max-width: 640px; margin-bottom: 24px; }
+  .section-title em { font-style: italic; color: var(--sage); }
+  .section-body { font-size: 16px; font-weight: 300; color: var(--ink-light); max-width: 480px; line-height: 1.75; }
+
+  /* HOW IT WORKS */
+  .how { background: var(--warm-white); }
+  .how-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; margin-top: 64px; align-items: start; }
+  .steps { display: flex; flex-direction: column; }
+  .step { display: grid; grid-template-columns: 48px 1fr; gap: 24px; padding: 28px 0; border-bottom: 1px solid var(--border); }
+  .step:first-child { border-top: 1px solid var(--border); }
+  .step-num { font-family: 'Cormorant Garamond', serif; font-size: 13px; font-weight: 400; color: var(--ink-light); opacity: 0.5; padding-top: 3px; letter-spacing: 0.06em; }
+  .step h3 { font-family: 'Cormorant Garamond', serif; font-size: 22px; font-weight: 400; margin-bottom: 8px; letter-spacing: -0.01em; }
+  .step p { font-size: 14px; font-weight: 300; color: var(--ink-light); line-height: 1.7; }
+
+  /* FEATURED PROFESSIONAL — Robert Ngoma */
+  .how-visual { background: var(--sage); border-radius: 4px; padding: 36px; position: sticky; top: 120px; color: #fff; }
+  .featured-label { font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; opacity: 0.6; margin-bottom: 18px; }
+  .profile-card-mock { background: rgba(255,255,255,0.09); border-radius: 4px; border: 1px solid rgba(255,255,255,0.18); overflow: hidden; }
+  .profile-photo { width: 100%; height: 200px; object-fit: cover; object-position: top center; display: block; }
+  .profile-body { padding: 22px 24px; }
+  .mock-name { font-size: 18px; font-weight: 500; margin-bottom: 2px; }
+  .mock-role { font-size: 12px; opacity: 0.65; margin-bottom: 16px; }
+  .mock-badges { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 18px; }
+  .mock-badge { background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.25); border-radius: 2px; padding: 4px 8px; font-size: 10px; font-weight: 500; letter-spacing: 0.07em; text-transform: uppercase; }
+  .mock-badge.verified { background: rgba(182,224,196,0.2); color: #b6e0c4; border-color: rgba(182,224,196,0.4); }
+  .mock-row { display: flex; justify-content: space-between; font-size: 13px; margin-bottom: 10px; opacity: 0.8; }
+  .mock-row strong { opacity: 1; font-weight: 500; }
+  .mock-btn { display: block; width: 100%; margin-top: 18px; background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.3); color: #fff; padding: 12px; text-align: center; font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; border-radius: 2px; cursor: pointer; font-family: 'DM Sans', sans-serif; transition: background 0.2s; }
+  .mock-btn:hover { background: rgba(255,255,255,0.25); }
+  .nmcz-ref { font-size: 10px; opacity: 0.45; text-align: center; margin-top: 10px; letter-spacing: 0.06em; }
+
+  /* PROFESSIONALS */
+  .professionals { background: var(--cream); }
+  .prof-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; margin-top: 64px; }
+  .prof-card { background: var(--warm-white); padding: 36px 32px; transition: background 0.2s; }
+  .prof-card:hover { background: var(--sage-light); }
+  .prof-icon { width: 44px; height: 44px; border-radius: 50%; background: var(--sage-light); display: flex; align-items: center; justify-content: center; margin-bottom: 20px; font-size: 20px; }
+  .prof-card h3 { font-family: 'Cormorant Garamond', serif; font-size: 22px; font-weight: 400; margin-bottom: 8px; }
+  .prof-card p { font-size: 13px; font-weight: 300; color: var(--ink-light); line-height: 1.7; margin-bottom: 16px; }
+  .prof-authority { font-size: 10px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--sage); opacity: 0.8; }
+
+  /* WHY */
+  .why { background: var(--warm-white); }
+  .why-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; margin-top: 64px; align-items: center; }
+  .why-points { display: flex; flex-direction: column; gap: 32px; }
+  .why-point { display: grid; grid-template-columns: 32px 1fr; gap: 20px; align-items: start; }
+  .why-num { font-family: 'Cormorant Garamond', serif; font-size: 18px; font-weight: 600; color: var(--sage); opacity: 0.7; }
+  .why-point h4 { font-size: 16px; font-weight: 500; margin-bottom: 6px; }
+  .why-point p { font-size: 14px; font-weight: 300; color: var(--ink-light); line-height: 1.7; }
+  .why-image { background: var(--sage); border-radius: 4px; aspect-ratio: 4/5; position: relative; overflow: hidden; }
+  .why-img-bg { position: absolute; inset: 0; background-image: url('https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=700&q=80'); background-size: cover; background-position: center; opacity: 0.5; }
+  .why-img-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(61,107,79,0.85) 0%, transparent 60%); }
+  .why-img-text { position: absolute; bottom: 36px; left: 36px; right: 36px; color: #fff; }
+  .why-img-text h3 { font-family: 'Cormorant Garamond', serif; font-size: 30px; font-weight: 300; line-height: 1.2; margin-bottom: 10px; }
+  .why-img-text p { font-size: 13px; opacity: 0.75; line-height: 1.6; }
+
+  /* PRICING */
+  .pricing { background: var(--ink); color: #fff; }
+  .pricing .section-label { color: var(--sage-mid); }
+  .pricing .section-label::before { background: var(--sage-mid); }
+  .pricing .section-title { color: #fff; }
+  .pricing .section-body { color: rgba(255,255,255,0.55); }
+  .pricing-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; margin-top: 64px; }
+  .price-card { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); padding: 40px 36px; transition: background 0.2s; }
+  .price-card:hover { background: rgba(255,255,255,0.08); }
+  .price-card.featured { background: var(--sage); border-color: var(--sage); }
+  .price-tag { font-size: 10px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--sage-mid); margin-bottom: 24px; display: block; }
+  .price-card.featured .price-tag { color: rgba(255,255,255,0.7); }
+  .price-amount { font-family: 'Cormorant Garamond', serif; font-size: 48px; font-weight: 300; line-height: 1; margin-bottom: 4px; }
+  .price-period { font-size: 12px; opacity: 0.5; margin-bottom: 28px; }
+  .price-features { list-style: none; display: flex; flex-direction: column; gap: 12px; margin-bottom: 36px; }
+  .price-features li { font-size: 13px; font-weight: 300; opacity: 0.8; display: flex; align-items: center; gap: 10px; }
+  .price-features li::before { content: ''; display: block; width: 16px; height: 1px; background: var(--sage-mid); flex-shrink: 0; }
+  .price-card.featured .price-features li::before { background: rgba(255,255,255,0.5); }
+  .price-cta { display: block; text-align: center; padding: 13px; border: 1px solid rgba(255,255,255,0.25); color: #fff; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none; border-radius: 2px; transition: background 0.2s; }
+  .price-cta:hover { background: rgba(255,255,255,0.1); }
+  .price-card.featured .price-cta { background: #fff; color: var(--sage); border-color: #fff; }
+
+  /* PAYMENT */
+  .payment { background: var(--cream); }
+  .payment-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; margin-top: 64px; align-items: center; }
+  .payment-providers { display: flex; flex-direction: column; gap: 12px; }
+  .provider-row { display: flex; align-items: center; gap: 16px; background: var(--warm-white); padding: 18px 24px; border-radius: 2px; border: 1px solid var(--border); font-size: 14px; }
+  .provider-dot { width: 10px; height: 10px; border-radius: 50%; }
+  .mtn { background: #FFC300; } .airtel { background: #E4003A; } .zamtel { background: #005E2F; } .card-dot { background: #1a1a18; }
+  .provider-sub { font-size: 12px; color: var(--ink-light); margin-left: auto; }
+
+  /* CTA */
+  .cta-section { background: var(--sage); color: #fff; padding: 100px 80px; text-align: center; }
+  .cta-section .section-title { color: #fff; max-width: 700px; margin: 0 auto 16px; }
+  .cta-section .section-body { color: rgba(255,255,255,0.7); margin: 0 auto 48px; text-align: center; }
+  .cta-buttons { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+  .btn-white { background: #fff; color: var(--sage); padding: 16px 36px; border-radius: 2px; font-size: 13px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; text-decoration: none; transition: background 0.2s, transform 0.15s; display: inline-block; }
+  .btn-white:hover { background: rgba(255,255,255,0.9); transform: translateY(-1px); }
+  .btn-outline-white { border: 1px solid rgba(255,255,255,0.4); color: #fff; padding: 16px 36px; border-radius: 2px; font-size: 13px; font-weight: 400; letter-spacing: 0.08em; text-transform: uppercase; text-decoration: none; transition: background 0.2s; display: inline-block; }
+  .btn-outline-white:hover { background: rgba(255,255,255,0.1); }
+
+  /* FOOTER */
+  footer { background: var(--ink); color: rgba(255,255,255,0.6); padding: 60px 80px 40px; }
+  .footer-top { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 48px; padding-bottom: 48px; border-bottom: 1px solid rgba(255,255,255,0.08); margin-bottom: 32px; }
+  .footer-brand .logo { color: #fff; display: block; margin-bottom: 4px; }
+  .footer-brand .logo-sub { color: rgba(255,255,255,0.35); margin-bottom: 12px; }
+  .footer-brand p { font-size: 13px; line-height: 1.7; max-width: 240px; }
+  .footer-col h4 { font-size: 11px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.4); margin-bottom: 16px; }
+  .footer-col a { display: block; font-size: 13px; color: rgba(255,255,255,0.55); text-decoration: none; margin-bottom: 10px; transition: color 0.2s; }
+  .footer-col a:hover { color: #fff; }
+  .footer-bottom { display: flex; justify-content: space-between; align-items: center; font-size: 12px; }
+  .footer-bottom span { opacity: 0.4; }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+  .hero-left > * { animation: fadeUp 0.7s ease both; }
+  .hero-eyebrow { animation-delay: 0.1s; } .hero h1 { animation-delay: 0.22s; } .hero-sub { animation-delay: 0.34s; } .hero-actions { animation-delay: 0.44s; } .hero-stats { animation-delay: 0.54s; }
+
+  @media (max-width: 1024px) {
+    nav { padding: 18px 32px; } section { padding: 80px 40px; }
+    .hero { grid-template-columns: 1fr; } .hero-left { padding: 60px 40px; } .hero-right { height: 420px; }
+    .how-grid, .why-grid, .payment-grid { grid-template-columns: 1fr; gap: 48px; }
+    .prof-grid, .pricing-grid { grid-template-columns: 1fr 1fr; }
+    .footer-top { grid-template-columns: 1fr 1fr; }
+    .trust-strip { padding: 18px 32px; gap: 28px; flex-wrap: wrap; }
+  }
+  @media (max-width: 640px) {
+    nav { padding: 16px 20px; } .nav-links { gap: 16px; } section { padding: 64px 24px; }
+    .hero-left { padding: 48px 24px; } .prof-grid, .pricing-grid { grid-template-columns: 1fr; }
+    .footer-top { grid-template-columns: 1fr; gap: 32px; } .cta-section { padding: 72px 24px; } footer { padding: 48px 24px 32px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="logo" href="#">Care<span>Bridge</span>
+    <span class="logo-sub">Zambia · Verified Home Healthcare</span>
+  </a>
+  <div class="nav-links">
+    <a href="#how">How it works</a>
+    <a href="#professionals">Professionals</a>
+    <a href="#pricing">Pricing</a>
+    <a href="#" class="nav-cta">Book Care</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <div class="hero-eyebrow"><span>Verified Home Healthcare · Zambia</span></div>
+    <h1>Care your family<br>can <em>trust,</em><br>at home.</h1>
+    <p class="hero-sub">Book NMCZ and HPCZ-verified nurses, physiotherapists, and caregivers for your recovering loved one — by the shift, on your schedule.</p>
+    <div class="hero-actions">
+      <a href="#how" class="btn-primary">Find a Professional</a>
+      <a href="#professionals" class="btn-secondary">I'm a Healthcare Professional</a>
+    </div>
+    <div class="hero-stats">
+      <div><div class="stat-num">100%</div><div class="stat-label">License Verified</div></div>
+      <div><div class="stat-num">5</div><div class="stat-label">Care Disciplines</div></div>
+      <div><div class="stat-num">Lusaka</div><div class="stat-label">Launching in</div></div>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-img-bg"></div>
+    <div class="hero-img-overlay"></div>
+    <div class="hero-right-content">
+      <div class="verification-card">
+        <div class="card-title">Every professional verified by</div>
+        <div class="badge-row">
+          <div class="badge"><div class="badge-dot"></div> NMCZ Verified</div>
+          <div class="badge"><div class="badge-dot"></div> HPCZ Certified</div>
+        </div>
+        <p class="card-desc">Nursing and Midwifery Council of Zambia &amp; Health Professions Council of Zambia — so you know exactly who is coming into your home.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TRUST STRIP -->
+<div class="trust-strip">
+  <div class="trust-item"><div class="trust-dot"></div> Registered Nurses</div>
+  <div class="trust-item"><div class="trust-dot"></div> Midwives</div>
+  <div class="trust-item"><div class="trust-dot"></div> Physiotherapists</div>
+  <div class="trust-item"><div class="trust-dot"></div> Mental Health Counsellors</div>
+  <div class="trust-item"><div class="trust-dot"></div> Certified Caregivers</div>
+</div>
+
+<!-- HOW IT WORKS -->
+<section class="how" id="how">
+  <div class="section-label">How it works</div>
+  <h2 class="section-title">From request to <em>bedside</em> — simply.</h2>
+  <div class="how-grid">
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">01</div>
+        <div><h3>Post your care request</h3><p>Describe the patient's condition, type of care needed, your location in Lusaka, and preferred shift times.</p></div>
+      </div>
+      <div class="step">
+        <div class="step-num">02</div>
+        <div><h3>Browse verified matches</h3><p>See nearby licensed professionals matched to your needs — each with their NMCZ/HPCZ badge, ratings, experience, and hourly rate.</p></div>
+      </div>
+      <div class="step">
+        <div class="step-num">03</div>
+        <div><h3>Book a shift</h3><p>Choose an 8-hour, 12-hour, or 24-hour shift. Pay securely via MTN Mobile Money, Airtel Money, or card.</p></div>
+      </div>
+      <div class="step">
+        <div class="step-num">04</div>
+        <div><h3>Care delivered at home</h3><p>Your professional arrives. Payment is released only after the shift is completed. Both sides leave a review.</p></div>
+      </div>
+    </div>
+
+    <!-- ROBERT NGOMA — REAL PROFILE CARD -->
+    <div class="how-visual">
+      <div class="featured-label">Featured professional on CareBridge</div>
+      <div class="profile-card-mock">
+        <img class="profile-photo" src="robert-ngoma.jpeg" alt="Robert Ngoma, Registered Nurse" onerror="this.style.display='none'">
+        <div class="profile-body">
+          <div class="mock-name">Robert Ngoma</div>
+          <div class="mock-role">Registered Nurse · UTH Lusaka</div>
+          <div class="mock-badges">
+            <span class="mock-badge verified">✓ NMCZ Verified</span>
+            <span class="mock-badge">RN23429</span>
+            <span class="mock-badge">5+ yrs exp</span>
+            <span class="mock-badge">Burns & Emergency</span>
+          </div>
+          <div class="mock-row"><span>Qualification</span><strong>Diploma in Nursing</strong></div>
+          <div class="mock-row"><span>Institution</span><strong>Lusaka Apex Medical Univ.</strong></div>
+          <div class="mock-row"><span>Specialisations</span><strong>Emergency, Paediatrics</strong></div>
+          <div class="mock-row"><span>Cert. No.</span><strong>440078 · Valid 2026</strong></div>
+          <button class="mock-btn">Book a shift with Robert →</button>
+          <div class="nmcz-ref">NMCZ Practicing Certificate No. 440078 · Issued Dec 2025</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROFESSIONALS -->
+<section class="professionals" id="professionals">
+  <div class="section-label">Who we verify</div>
+  <h2 class="section-title">Five disciplines. One <em>trusted</em> platform.</h2>
+  <p class="section-body">Every professional on CareBridge is licensed, background-checked, and verified against official NMCZ and HPCZ databases before appearing in any search result.</p>
+  <div class="prof-grid">
+    <div class="prof-card">
+      <div class="prof-icon">🩺</div>
+      <h3>Registered Nurses</h3>
+      <p>Post-surgery care, medication administration, wound dressing, chronic disease management, and palliative care at home.</p>
+      <div class="prof-authority">Verified by NMCZ</div>
+    </div>
+    <div class="prof-card">
+      <div class="prof-icon">👶</div>
+      <h3>Midwives</h3>
+      <p>Postnatal home visits, newborn checks, breastfeeding support, and maternal recovery care.</p>
+      <div class="prof-authority">Verified by NMCZ</div>
+    </div>
+    <div class="prof-card">
+      <div class="prof-icon">🦽</div>
+      <h3>Physiotherapists</h3>
+      <p>Stroke rehabilitation, mobility recovery, post-orthopaedic care, and exercise therapy in the patient's home.</p>
+      <div class="prof-authority">Verified by HPCZ</div>
+    </div>
+    <div class="prof-card">
+      <div class="prof-icon">🧠</div>
+      <h3>Mental Health Counsellors</h3>
+      <p>Home-based counselling for depression, anxiety, grief, and caregiver stress — for patients and families alike.</p>
+      <div class="prof-authority">Verified by HPCZ</div>
+    </div>
+    <div class="prof-card">
+      <div class="prof-icon">🤲</div>
+      <h3>Certified Caregivers</h3>
+      <p>Daily living assistance, elderly care, companionship, and support for patients with long-term conditions.</p>
+      <div class="prof-authority">Certified & background-checked</div>
+    </div>
+    <div class="prof-card" style="background:var(--sage);color:#fff;">
+      <div class="prof-icon" style="background:rgba(255,255,255,0.15);">＋</div>
+      <h3 style="color:#fff;">Are you a healthcare professional?</h3>
+      <p style="color:rgba(255,255,255,0.75);">List your services, set your availability, and connect with Lusaka families who need your expertise.</p>
+      <a href="#" style="font-size:12px;font-weight:500;color:rgba(255,255,255,0.9);letter-spacing:0.06em;text-transform:uppercase;text-decoration:none;display:inline-flex;align-items:center;gap:6px;border-bottom:1px solid rgba(255,255,255,0.3);padding-bottom:2px;">Apply to join →</a>
+    </div>
+  </div>
+</section>
+
+<!-- WHY CAREBRIDGE -->
+<section class="why">
+  <div class="section-label">Why CareBridge</div>
+  <div class="why-grid">
+    <div>
+      <h2 class="section-title">The trust problem in<br>home care — <em>solved.</em></h2>
+      <p class="section-body" style="margin-bottom:48px;">Families in Zambia deserve to know exactly who is caring for their loved ones. CareBridge is the only platform that verifies every professional against official licensing databases before they appear in any search result.</p>
+      <div class="why-points">
+        <div class="why-point"><div class="why-num">01</div><div><h4>License verification at the source</h4><p>We check directly with NMCZ and HPCZ — not just against self-reported certificates.</p></div></div>
+        <div class="why-point"><div class="why-num">02</div><div><h4>Shift-based, not subscription-based</h4><p>Pay for what you need. An 8-hour shift for one week of recovery, not a recurring monthly fee.</p></div></div>
+        <div class="why-point"><div class="why-num">03</div><div><h4>Payment held until care is delivered</h4><p>Funds are released to the professional only after the shift is completed — protecting both sides.</p></div></div>
+        <div class="why-point"><div class="why-num">04</div><div><h4>Built for Zambia</h4><p>Mobile money payments, Lusaka-first coverage, and professionals who understand local healthcare context.</p></div></div>
+      </div>
+    </div>
+    <div class="why-image">
+      <div class="why-img-bg"></div>
+      <div class="why-img-overlay"></div>
+      <div class="why-img-text">
+        <h3>"I needed someone I could trust with my mother."</h3>
+        <p>CareBridge families see the license number, qualifications, and past reviews of every professional before confirming a booking.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="pricing" id="pricing">
+  <div class="section-label">Pricing</div>
+  <h2 class="section-title" style="color:#fff;">Simple, transparent <em>fees.</em></h2>
+  <p class="section-body">No subscriptions required for families. Pay per shift — or choose a membership for regular care needs.</p>
+  <div class="pricing-grid">
+    <div class="price-card">
+      <span class="price-tag">Per shift</span>
+      <div class="price-amount">20<span style="font-size:22px;opacity:0.6;">%</span></div>
+      <div class="price-period">platform fee per booking</div>
+      <ul class="price-features">
+        <li>No account required</li>
+        <li>Search & browse professionals</li>
+        <li>Shift booking & scheduling</li>
+        <li>Mobile money payment</li>
+        <li>Ratings & reviews</li>
+      </ul>
+      <a href="#" class="price-cta">Book a shift</a>
+    </div>
+    <div class="price-card featured">
+      <span class="price-tag">Family membership</span>
+      <div class="price-amount">K250</div>
+      <div class="price-period">per month</div>
+      <ul class="price-features">
+        <li>Reduced platform fee</li>
+        <li>Priority bookings</li>
+        <li>Saved patient profiles</li>
+        <li>Booking history & records</li>
+        <li>Dedicated support</li>
+      </ul>
+      <a href="#" class="price-cta">Start membership</a>
+    </div>
+    <div class="price-card">
+      <span class="price-tag">For professionals</span>
+      <div class="price-amount">K150</div>
+      <div class="price-period">per month</div>
+      <ul class="price-features">
+        <li>Verified badge on profile</li>
+        <li>Appear in family searches</li>
+        <li>Scheduling & availability tools</li>
+        <li>Booking management</li>
+        <li>Earnings dashboard</li>
+      </ul>
+      <a href="#" class="price-cta">Join as a professional</a>
+    </div>
+  </div>
+</section>
+
+<!-- PAYMENT -->
+<section class="payment">
+  <div class="section-label">Payments</div>
+  <div class="payment-grid">
+    <div>
+      <h2 class="section-title">Pay the way<br>Zambia <em>pays.</em></h2>
+      <p class="section-body">Mobile money is how families transact. CareBridge supports all major Zambian payment methods — no bank account required.</p>
+    </div>
+    <div class="payment-providers">
+      <div class="provider-row"><div class="provider-dot mtn"></div> MTN Mobile Money <span class="provider-sub">Supported</span></div>
+      <div class="provider-row"><div class="provider-dot airtel"></div> Airtel Money <span class="provider-sub">Supported</span></div>
+      <div class="provider-row"><div class="provider-dot zamtel"></div> Zamtel Kwacha <span class="provider-sub">Supported</span></div>
+      <div class="provider-row"><div class="provider-dot card-dot"></div> Debit / Credit Card <span class="provider-sub">Visa &amp; Mastercard</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <div class="section-label" style="justify-content:center;color:rgba(255,255,255,0.6);">
+    <span style="border-left:1px solid rgba(255,255,255,0.4);padding-left:12px;">Get started today</span>
+  </div>
+  <h2 class="section-title">Your loved one deserves<br>care you can <em>trust.</em></h2>
+  <p class="section-body">CareBridge connects Zambian families with verified, licensed healthcare professionals — by the shift, in the comfort of home.</p>
+  <div class="cta-buttons">
+    <a href="#how" class="btn-white">Find a Caregiver</a>
+    <a href="#" class="btn-outline-white">List your services</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <a class="logo" href="#">Care<span style="color:var(--sage-mid)">Bridge</span>
+        <span class="logo-sub" style="color:rgba(255,255,255,0.35)">Zambia · Verified Home Healthcare</span>
+      </a>
+      <p>Connecting Zambian families with verified, licensed healthcare professionals for trusted home care — by the shift.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Families</h4>
+      <a href="#">How it works</a><a href="#">Browse professionals</a><a href="#">Pricing</a><a href="#">Family membership</a>
+    </div>
+    <div class="footer-col">
+      <h4>Professionals</h4>
+      <a href="#">Join CareBridge</a><a href="#">Verification process</a><a href="#">Professional subscription</a><a href="#">Support</a>
+    </div>
+    <div class="footer-col">
+      <h4>Company</h4>
+      <a href="#">About</a><a href="#">Contact</a><a href="#">Terms &amp; Conditions</a><a href="#">Privacy Policy</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© CareBridge 2025. Lusaka, Zambia. All rights reserved.</span>
+    <span>NMCZ &amp; HPCZ Verified Platform</span>
+  </div>
+</footer>
+
+</body>
+</html>
