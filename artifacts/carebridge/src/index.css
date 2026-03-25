@@ -12,8 +12,8 @@
 :root {
   --cb-ink: #1a1a18;
   --cb-ink-light: #4a4a42;
-  --cb-cream: #faf8f3;
-  --cb-warm-white: #f5f3ed;
+  --cb-cream: #ede8dc;
+  --cb-warm-white: #e4ddd0;
   --cb-sage: #3d6b4f;
   --cb-sage-light: #e8f0eb;
   --cb-sage-mid: #6a9b7a;
@@ -23,8 +23,8 @@
   --cb-border-strong: rgba(26,26,24,0.2);
   --cb-trust-bg: #1a1a18;
   --cb-pricing-bg: #1a1a18;
-  --cb-nav-bg: rgba(250,248,243,0.92);
-  --cb-card-bg: rgba(250,248,243,0.95);
+  --cb-nav-bg: rgba(237,232,220,0.94);
+  --cb-card-bg: rgba(237,232,220,0.97);
   --cb-footer-bg: #1a1a18;
   --cb-app-font-sans: 'DM Sans', sans-serif;
   --cb-app-font-serif: 'Cormorant Garamond', serif;
