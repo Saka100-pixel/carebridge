@@ -138,6 +138,7 @@
 @media (max-width: 1024px) {
   .cb-nav { padding: 18px 32px; }
   .cb-section { padding: 80px 40px; }
+  .cb-page-nav { padding: 14px 32px; }
   .cb-hero-grid { grid-template-columns: 1fr; }
   .cb-hero-right { height: 420px; }
   .cb-two-col,
