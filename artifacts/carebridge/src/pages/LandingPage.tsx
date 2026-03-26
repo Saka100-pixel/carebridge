@@ -89,16 +89,16 @@ export default function LandingPage() {
         {page === "pricing" && <PagePricing navigate={navigate} />}
 
         {/* ── PAGE NAV BAR (bottom) ── */}
-        <div style={{ background: "var(--cb-trust-bg)", padding: "16px 80px", display: "flex", alignItems: "center", justifyContent: "space-between", gap: 16, flexWrap: "wrap" }}>
-          <div style={{ display: "flex", gap: 4 }}>
+        <div className="cb-page-nav">
+          <div className="cb-page-nav-pills">
             {PAGES.map((p) => (
               <button key={p.id} onClick={() => navigate(p.id)}
-                style={{ background: page === p.id ? "var(--cb-sage)" : "rgba(255,255,255,0.07)", border: "none", borderRadius: 2, padding: "7px 16px", fontSize: 11, fontWeight: page === p.id ? 600 : 400, letterSpacing: "0.08em", textTransform: "uppercase", color: page === p.id ? "#fff" : "rgba(255,255,255,0.5)", cursor: "pointer", fontFamily: UI, transition: "background 0.2s, color 0.2s" }}>
+                style={{ background: page === p.id ? "var(--cb-sage)" : "rgba(255,255,255,0.07)", border: "none", borderRadius: 2, padding: "7px 14px", fontSize: 11, fontWeight: page === p.id ? 600 : 400, letterSpacing: "0.08em", textTransform: "uppercase", color: page === p.id ? "#fff" : "rgba(255,255,255,0.5)", cursor: "pointer", fontFamily: UI, transition: "background 0.2s, color 0.2s", whiteSpace: "nowrap", flexShrink: 0 }}>
                 {p.label}
               </button>
             ))}
           </div>
-          <div style={{ display: "flex", gap: 24, alignItems: "center" }}>
+          <div className="cb-page-nav-arrows">
             {page !== "home" && (
               <button onClick={() => navigate(PAGES[PAGES.findIndex(p => p.id === page) - 1]?.id || "home")}
                 style={{ background: "none", border: "1px solid rgba(255,255,255,0.2)", borderRadius: 2, padding: "7px 20px", fontSize: 11, color: "rgba(255,255,255,0.6)", cursor: "pointer", fontFamily: UI, letterSpacing: "0.08em" }}>
