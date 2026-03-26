@@ -193,24 +193,47 @@ function PageHome({ dark: _dark, navigate }: { dark: boolean; navigate: (p: Page
         <div className="cb-hero-left" style={{ display: "flex", flexDirection: "column", justifyContent: "center", padding: "64px 64px 64px 80px" }}>
           <div className="cb-fade-1" style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 28 }}>
             <div style={{ width: 32, height: 1, background: "var(--cb-sage)" }} />
-            <span style={{ fontSize: 11, fontWeight: 500, letterSpacing: "0.14em", textTransform: "uppercase", color: "var(--cb-sage)", fontFamily: UI }}>Verified Home Healthcare · Zambia</span>
+            <span style={{ fontSize: 11, fontWeight: 500, letterSpacing: "0.14em", textTransform: "uppercase", color: "var(--cb-sage)", fontFamily: UI }}>Verified Home Healthcare · Lusaka, Zambia</span>
           </div>
-          <h1 className="cb-fade-2" style={{ fontFamily: SERIF, fontSize: "clamp(48px,5.5vw,78px)", fontWeight: 300, lineHeight: 1.08, letterSpacing: "-0.02em", color: "var(--cb-ink)", marginBottom: 28 }}>
-            Care your family<br />can <em style={{ color: "var(--cb-sage)" }}>trust,</em><br />at home.
+          <h1 className="cb-fade-2" style={{ fontFamily: SERIF, fontSize: "clamp(44px,5.5vw,74px)", fontWeight: 300, lineHeight: 1.08, letterSpacing: "-0.02em", color: "var(--cb-ink)", marginBottom: 20 }}>
+            Trusted home healthcare<br />for your <em style={{ color: "var(--cb-sage)" }}>loved ones.</em>
           </h1>
-          <p className="cb-fade-3" style={{ fontSize: 16, fontWeight: 400, color: "var(--cb-ink-light)", maxWidth: 400, lineHeight: 1.85, marginBottom: 48, fontFamily: BODY }}>
-            Book NMCZ and HPCZ-verified nurses, physiotherapists, and caregivers for your recovering loved one — by the shift, on your schedule.
+          <p className="cb-fade-3" style={{ fontSize: 16, fontWeight: 400, color: "var(--cb-ink-light)", maxWidth: 420, lineHeight: 1.85, marginBottom: 16, fontFamily: BODY }}>
+            Book licensed nurses, physiotherapists, and caregivers in Lusaka — by the shift.
           </p>
-          <div className="cb-fade-4 cb-hero-actions" style={{ display: "flex", gap: 16, alignItems: "center", flexWrap: "wrap" }}>
-            <button onClick={() => navigate("how")} style={{ background: "var(--cb-sage)", color: "#fff", padding: "15px 32px", borderRadius: 2, fontSize: 13, fontWeight: 600, letterSpacing: "0.08em", textTransform: "uppercase", border: "none", cursor: "pointer", fontFamily: UI }}>Find a Professional</button>
-            <button onClick={() => navigate("professionals")} style={{ color: "var(--cb-ink)", fontSize: 13, fontWeight: 400, letterSpacing: "0.06em", textTransform: "uppercase", background: "none", border: "none", borderBottom: "1px solid var(--cb-border-strong)", cursor: "pointer", padding: "15px 0", fontFamily: UI }}>
-              I'm a Healthcare Professional →
+          {/* Starting price */}
+          <div className="cb-fade-3" style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 32 }}>
+            <div style={{ width: 6, height: 6, borderRadius: "50%", background: "var(--cb-sage)" }} />
+            <span style={{ fontSize: 14, fontWeight: 500, color: "var(--cb-sage)", fontFamily: BODY }}>From K350 per shift</span>
+            <span style={{ fontSize: 13, color: "var(--cb-ink-light)", fontFamily: BODY }}>· No subscription needed</span>
+          </div>
+          <div className="cb-fade-4 cb-hero-actions" style={{ display: "flex", gap: 12, alignItems: "center", flexWrap: "wrap", marginBottom: 20 }}>
+            <button onClick={() => navigate("how")} style={{ background: "var(--cb-sage)", color: "#fff", padding: "15px 28px", borderRadius: 2, fontSize: 13, fontWeight: 600, letterSpacing: "0.08em", textTransform: "uppercase", border: "none", cursor: "pointer", fontFamily: UI }}>Find a Professional</button>
+            <button onClick={() => navigate("how")} style={{ color: "var(--cb-ink)", fontSize: 13, fontWeight: 500, letterSpacing: "0.06em", textTransform: "uppercase", background: "none", border: "1px solid var(--cb-border-strong)", cursor: "pointer", padding: "14px 24px", borderRadius: 2, fontFamily: UI }}>
+              How It Works
             </button>
           </div>
-          <div className="cb-fade-5 cb-stats-row" style={{ display: "flex", gap: 40, marginTop: 56, paddingTop: 40, borderTop: "1px solid var(--cb-border)" }}>
-            {[["100%", "License Verified"], ["5", "Care Disciplines"], ["Lusaka", "Launching in"]].map(([n, l]) => (
+          {/* Urgent care CTA */}
+          <button className="cb-fade-4" onClick={() => navigate("how")} style={{ display: "flex", alignItems: "center", gap: 10, background: "rgba(255,180,0,0.1)", border: "1px solid rgba(255,180,0,0.35)", borderRadius: 2, padding: "12px 20px", cursor: "pointer", marginBottom: 40, fontFamily: UI }}>
+            <span style={{ fontSize: 16 }}>⚡</span>
+            <span style={{ fontSize: 13, fontWeight: 600, color: "#b07800", letterSpacing: "0.04em" }}>Find a Nurse in 60 Minutes</span>
+            <span style={{ fontSize: 12, color: "var(--cb-ink-light)", fontFamily: BODY }}>— Urgent care available</span>
+          </button>
+          {/* Location coverage */}
+          <div className="cb-fade-5" style={{ marginBottom: 40 }}>
+            <div style={{ fontSize: 11, fontWeight: 600, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--cb-ink-light)", marginBottom: 10, fontFamily: UI }}>Available in Lusaka</div>
+            <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
+              {["Kabulonga", "Woodlands", "Roma", "Ibex Hill", "Rhodes Park", "Chelston"].map((area) => (
+                <span key={area} style={{ display: "flex", alignItems: "center", gap: 5, fontSize: 12, fontWeight: 400, color: "var(--cb-ink-light)", fontFamily: BODY }}>
+                  <span style={{ color: "var(--cb-sage)", fontWeight: 700 }}>✓</span> {area}
+                </span>
+              ))}
+            </div>
+          </div>
+          <div className="cb-stats-row" style={{ display: "flex", gap: 40, paddingTop: 32, borderTop: "1px solid var(--cb-border)" }}>
+            {[["100%", "License Verified"], ["5", "Care Disciplines"], ["K350+", "From per shift"]].map(([n, l]) => (
               <div key={l}>
-                <div style={{ fontFamily: SERIF, fontSize: 36, fontWeight: 600, color: "var(--cb-ink)", lineHeight: 1 }}>{n}</div>
+                <div style={{ fontFamily: SERIF, fontSize: 34, fontWeight: 600, color: "var(--cb-ink)", lineHeight: 1 }}>{n}</div>
                 <div style={{ fontSize: 11, color: "var(--cb-ink-light)", letterSpacing: "0.06em", textTransform: "uppercase", marginTop: 4, fontFamily: UI }}>{l}</div>
               </div>
             ))}
@@ -292,8 +315,12 @@ function PageHow() {
                   <span>{l}</span><strong style={{ fontWeight: 600 }}>{v}</strong>
                 </div>
               ))}
-              <button style={{ display: "block", width: "100%", marginTop: 16, background: "rgba(255,255,255,0.15)", border: "1px solid rgba(255,255,255,0.3)", color: "#fff", padding: 11, textAlign: "center", fontSize: 12, letterSpacing: "0.1em", textTransform: "uppercase", borderRadius: 2, cursor: "pointer", fontFamily: UI }}>
-                Book a shift with Robert →
+              <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginTop: 14, marginBottom: 4 }}>
+                <span style={{ fontSize: 12, opacity: 0.6, fontFamily: BODY }}>Per shift rate</span>
+                <span style={{ fontSize: 20, fontWeight: 700, fontFamily: SERIF, color: "#fff" }}>K450</span>
+              </div>
+              <button style={{ display: "block", width: "100%", marginTop: 8, background: "#fff", border: "none", color: "var(--cb-sage)", padding: 12, textAlign: "center", fontSize: 12, letterSpacing: "0.1em", textTransform: "uppercase", borderRadius: 2, cursor: "pointer", fontFamily: UI, fontWeight: 700 }}>
+                Book Robert — K450 / shift →
               </button>
               <div style={{ fontSize: 10, opacity: 0.4, textAlign: "center", marginTop: 8, fontFamily: UI }}>NMCZ Practicing Certificate No. 440078 · Issued Dec 2025</div>
             </div>
