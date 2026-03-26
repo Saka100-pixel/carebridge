@@ -114,6 +114,8 @@
 .cb-page-nav {
   background: var(--cb-trust-bg);
   padding: 14px 80px;
+}
+.cb-page-nav-desktop {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -123,13 +125,9 @@
   display: flex;
   gap: 4px;
   align-items: center;
-  flex-wrap: nowrap;
 }
-.cb-page-nav-arrows {
-  display: flex;
-  gap: 12px;
-  align-items: center;
-  flex-shrink: 0;
+.cb-page-nav-mobile {
+  display: none;
 }
 .cb-hero-right { display: block; }
 
@@ -187,22 +185,12 @@
   .cb-footer-bottom { flex-direction: column; gap: 8px; text-align: center; }
   .cb-section-title { font-size: clamp(30px, 8vw, 48px) !important; }
 
-  /* Page nav bar — stack pills above arrows */
-  .cb-page-nav {
-    padding: 12px 16px;
-    flex-direction: column;
-    align-items: stretch;
-    gap: 10px;
-  }
-  .cb-page-nav-pills {
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;
-    padding-bottom: 2px;
-  }
-  .cb-page-nav-pills::-webkit-scrollbar { display: none; }
-  .cb-page-nav-arrows {
-    justify-content: flex-end;
-    gap: 8px;
+  /* Page nav bar — mobile: hide desktop pills, show prev/dots/next */
+  .cb-page-nav { padding: 14px 16px; }
+  .cb-page-nav-desktop { display: none; }
+  .cb-page-nav-mobile {
+    display: flex;
+    align-items: center;
+    gap: 12px;
   }
 }

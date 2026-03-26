@@ -90,28 +90,58 @@ export default function LandingPage() {
 
         {/* ── PAGE NAV BAR (bottom) ── */}
         <div className="cb-page-nav">
-          <div className="cb-page-nav-pills">
-            {PAGES.map((p) => (
-              <button key={p.id} onClick={() => navigate(p.id)}
-                style={{ background: page === p.id ? "var(--cb-sage)" : "rgba(255,255,255,0.07)", border: "none", borderRadius: 2, padding: "7px 14px", fontSize: 11, fontWeight: page === p.id ? 600 : 400, letterSpacing: "0.08em", textTransform: "uppercase", color: page === p.id ? "#fff" : "rgba(255,255,255,0.5)", cursor: "pointer", fontFamily: UI, transition: "background 0.2s, color 0.2s", whiteSpace: "nowrap", flexShrink: 0 }}>
-                {p.label}
-              </button>
-            ))}
+
+          {/* Desktop: all pills + arrows side by side */}
+          <div className="cb-page-nav-desktop">
+            <div className="cb-page-nav-pills">
+              {PAGES.map((p) => (
+                <button key={p.id} onClick={() => navigate(p.id)}
+                  style={{ background: page === p.id ? "var(--cb-sage)" : "rgba(255,255,255,0.07)", border: "none", borderRadius: 2, padding: "7px 14px", fontSize: 11, fontWeight: page === p.id ? 600 : 400, letterSpacing: "0.08em", textTransform: "uppercase", color: page === p.id ? "#fff" : "rgba(255,255,255,0.5)", cursor: "pointer", fontFamily: UI, transition: "background 0.2s, color 0.2s", whiteSpace: "nowrap" }}>
+                  {p.label}
+                </button>
+              ))}
+            </div>
+            <div style={{ display: "flex", gap: 12, alignItems: "center" }}>
+              {page !== "home" && (
+                <button onClick={() => navigate(PAGES[PAGES.findIndex(p => p.id === page) - 1]?.id || "home")}
+                  style={{ background: "none", border: "1px solid rgba(255,255,255,0.2)", borderRadius: 2, padding: "7px 20px", fontSize: 11, color: "rgba(255,255,255,0.6)", cursor: "pointer", fontFamily: UI, letterSpacing: "0.08em" }}>
+                  ← Prev
+                </button>
+              )}
+              {page !== "pricing" && (
+                <button onClick={() => navigate(PAGES[PAGES.findIndex(p => p.id === page) + 1]?.id || "pricing")}
+                  style={{ background: "var(--cb-sage)", border: "none", borderRadius: 2, padding: "7px 20px", fontSize: 11, color: "#fff", cursor: "pointer", fontFamily: UI, letterSpacing: "0.08em" }}>
+                  Next →
+                </button>
+              )}
+            </div>
           </div>
-          <div className="cb-page-nav-arrows">
-            {page !== "home" && (
-              <button onClick={() => navigate(PAGES[PAGES.findIndex(p => p.id === page) - 1]?.id || "home")}
-                style={{ background: "none", border: "1px solid rgba(255,255,255,0.2)", borderRadius: 2, padding: "7px 20px", fontSize: 11, color: "rgba(255,255,255,0.6)", cursor: "pointer", fontFamily: UI, letterSpacing: "0.08em" }}>
-                ← Prev
-              </button>
-            )}
-            {page !== "pricing" && (
-              <button onClick={() => navigate(PAGES[PAGES.findIndex(p => p.id === page) + 1]?.id || "pricing")}
-                style={{ background: "var(--cb-sage)", border: "none", borderRadius: 2, padding: "7px 20px", fontSize: 11, color: "#fff", cursor: "pointer", fontFamily: UI, letterSpacing: "0.08em" }}>
-                Next →
-              </button>
-            )}
+
+          {/* Mobile: prev | page name + dots | next */}
+          <div className="cb-page-nav-mobile">
+            <button onClick={() => navigate(PAGES[PAGES.findIndex(p => p.id === page) - 1]?.id || "home")}
+              disabled={page === "home"}
+              style={{ background: "none", border: "1px solid rgba(255,255,255,0.2)", borderRadius: 2, padding: "10px 18px", fontSize: 12, color: page === "home" ? "rgba(255,255,255,0.2)" : "rgba(255,255,255,0.7)", cursor: page === "home" ? "default" : "pointer", fontFamily: UI }}>
+              ←
+            </button>
+            <div style={{ flex: 1, textAlign: "center" }}>
+              <div style={{ fontSize: 13, fontWeight: 600, color: "#fff", letterSpacing: "0.06em", textTransform: "uppercase", fontFamily: UI }}>
+                {PAGES.find(p => p.id === page)?.label}
+              </div>
+              <div style={{ display: "flex", justifyContent: "center", gap: 5, marginTop: 6 }}>
+                {PAGES.map((p) => (
+                  <button key={p.id} onClick={() => navigate(p.id)}
+                    style={{ width: p.id === page ? 18 : 6, height: 6, borderRadius: 3, background: p.id === page ? "var(--cb-sage)" : "rgba(255,255,255,0.25)", border: "none", cursor: "pointer", padding: 0, transition: "width 0.2s, background 0.2s" }} />
+                ))}
+              </div>
+            </div>
+            <button onClick={() => navigate(PAGES[PAGES.findIndex(p => p.id === page) + 1]?.id || "pricing")}
+              disabled={page === "pricing"}
+              style={{ background: page === "pricing" ? "rgba(255,255,255,0.05)" : "var(--cb-sage)", border: "none", borderRadius: 2, padding: "10px 18px", fontSize: 12, color: page === "pricing" ? "rgba(255,255,255,0.2)" : "#fff", cursor: page === "pricing" ? "default" : "pointer", fontFamily: UI }}>
+              →
+            </button>
           </div>
+
         </div>
 
         {/* FOOTER */}
