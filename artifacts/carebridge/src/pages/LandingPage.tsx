@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useLocation } from "wouter";
 import robertPhoto from "/robert-ngoma.jpeg";
 import zambianFamily from "/zambian-family.jpeg";
 
@@ -21,6 +22,8 @@ export default function LandingPage() {
   const [page, setPage] = useState<Page>("home");
   const [menuOpen, setMenuOpen] = useState(false);
   const [visible, setVisible] = useState(true);
+  const [, setLocation] = useLocation();
+  const navigate_real = (path: string) => setLocation(path);
 
   function navigate(p: Page) {
     if (p === page) return;
@@ -59,9 +62,13 @@ export default function LandingPage() {
                 {p.label}
               </button>
             ))}
-            <button onClick={() => navigate("how")}
+            <button onClick={() => setLocation("/login")}
+              style={{ background: "none", border: "1px solid var(--cb-border-strong)", color: "var(--cb-ink)", padding: "9px 18px", borderRadius: 2, fontSize: 12, letterSpacing: "0.08em", textTransform: "uppercase", cursor: "pointer", fontFamily: UI }}>
+              Log in
+            </button>
+            <button onClick={() => setLocation("/professionals")}
               style={{ background: "var(--cb-sage)", color: "#fff", padding: "10px 22px", borderRadius: 2, fontSize: 12, letterSpacing: "0.1em", textTransform: "uppercase", border: "none", cursor: "pointer", fontFamily: UI }}>
-              Book Care
+              Find Care
             </button>
           </div>
 
@@ -153,14 +160,14 @@ export default function LandingPage() {
               <p style={{ fontSize: 13.5, lineHeight: 1.75, maxWidth: 240, fontFamily: BODY }}>Connecting Zambian families with verified, licensed healthcare professionals — by the shift.</p>
             </div>
             {[
-              { heading: "Families", links: ["How it works", "Browse professionals", "Pricing", "Family membership"] },
-              { heading: "Professionals", links: ["Join CareBridge", "Verification process", "Professional subscription", "Support"] },
-              { heading: "Company", links: ["About", "Contact", "Terms & Conditions", "Privacy Policy"] },
+              { heading: "Families", links: [["How it works", "#how"], ["Browse professionals", "/professionals"], ["Pricing", "#pricing"], ["Create account", "/register"]] },
+              { heading: "Professionals", links: [["Join CareBridge", "/register"], ["Verification process", "#how"], ["Professional subscription", "/register"], ["Log in", "/login"]] },
+              { heading: "Company", links: [["About", "#"], ["Contact", "#"], ["Terms & Conditions", "#"], ["Privacy Policy", "#"]] },
             ].map((col) => (
               <div key={col.heading}>
                 <h4 style={{ fontSize: 11, fontWeight: 600, letterSpacing: "0.1em", textTransform: "uppercase", color: "rgba(255,255,255,0.4)", marginBottom: 16, fontFamily: UI }}>{col.heading}</h4>
-                {col.links.map((link) => (
-                  <a key={link} href="#" style={{ display: "block", fontSize: 13.5, color: "rgba(255,255,255,0.55)", textDecoration: "none", marginBottom: 10, fontFamily: BODY }}>{link}</a>
+                {col.links.map(([label, href]) => (
+                  <a key={label} href={href} style={{ display: "block", fontSize: 13.5, color: "rgba(255,255,255,0.55)", textDecoration: "none", marginBottom: 10, fontFamily: BODY }}>{label}</a>
                 ))}
               </div>
             ))}
@@ -208,13 +215,13 @@ function PageHome({ dark: _dark, navigate }: { dark: boolean; navigate: (p: Page
             <span style={{ fontSize: 13, color: "var(--cb-ink-light)", fontFamily: BODY }}>· No subscription needed</span>
           </div>
           <div className="cb-fade-4 cb-hero-actions" style={{ display: "flex", gap: 12, alignItems: "center", flexWrap: "wrap", marginBottom: 20 }}>
-            <button onClick={() => navigate("how")} style={{ background: "var(--cb-sage)", color: "#fff", padding: "15px 28px", borderRadius: 2, fontSize: 13, fontWeight: 600, letterSpacing: "0.08em", textTransform: "uppercase", border: "none", cursor: "pointer", fontFamily: UI }}>Find a Professional</button>
+            <button onClick={() => navigate_real("/professionals")} style={{ background: "var(--cb-sage)", color: "#fff", padding: "15px 28px", borderRadius: 2, fontSize: 13, fontWeight: 600, letterSpacing: "0.08em", textTransform: "uppercase", border: "none", cursor: "pointer", fontFamily: UI }}>Find a Professional</button>
             <button onClick={() => navigate("how")} style={{ color: "var(--cb-ink)", fontSize: 13, fontWeight: 500, letterSpacing: "0.06em", textTransform: "uppercase", background: "none", border: "1px solid var(--cb-border-strong)", cursor: "pointer", padding: "14px 24px", borderRadius: 2, fontFamily: UI }}>
               How It Works
             </button>
           </div>
           {/* Urgent care CTA */}
-          <button className="cb-fade-4" onClick={() => navigate("how")} style={{ display: "flex", alignItems: "center", gap: 10, background: "rgba(255,180,0,0.1)", border: "1px solid rgba(255,180,0,0.35)", borderRadius: 2, padding: "12px 20px", cursor: "pointer", marginBottom: 40, fontFamily: UI }}>
+          <button className="cb-fade-4" onClick={() => navigate_real("/professionals?urgent=true")} style={{ display: "flex", alignItems: "center", gap: 10, background: "rgba(255,180,0,0.1)", border: "1px solid rgba(255,180,0,0.35)", borderRadius: 2, padding: "12px 20px", cursor: "pointer", marginBottom: 40, fontFamily: UI }}>
             <span style={{ fontSize: 16 }}>⚡</span>
             <span style={{ fontSize: 13, fontWeight: 600, color: "#b07800", letterSpacing: "0.04em" }}>Find a Nurse in 60 Minutes</span>
             <span style={{ fontSize: 12, color: "var(--cb-ink-light)", fontFamily: BODY }}>— Urgent care available</span>
@@ -334,7 +341,7 @@ function PageHow() {
 /* ════════════════════════════════════════
    PAGE: PROFESSIONALS
 ════════════════════════════════════════ */
-function PageProfessionals({ navigate }: { navigate: (p: Page) => void }) {
+function PageProfessionals({ navigate }: { navigate: (p: Page) => void; }) {
   return (
     <section className="cb-section" style={{ background: "var(--cb-cream)", minHeight: "calc(100vh - 72px)" }}>
       <SectionLabel>Who we verify</SectionLabel>
@@ -365,7 +372,7 @@ function PageProfessionals({ navigate }: { navigate: (p: Page) => void }) {
           <div style={{ width: 42, height: 42, borderRadius: "50%", background: "rgba(255,255,255,0.15)", display: "flex", alignItems: "center", justifyContent: "center", marginBottom: 16, fontSize: 19 }}>＋</div>
           <h3 style={{ fontFamily: SERIF, fontSize: 21, fontWeight: 400, marginBottom: 8, color: "#fff" }}>Are you a healthcare professional?</h3>
           <p style={{ fontSize: 13.5, fontWeight: 400, color: "rgba(255,255,255,0.8)", lineHeight: 1.75, marginBottom: 18, fontFamily: BODY }}>List your services, set your availability, and connect with Lusaka families who need your expertise.</p>
-          <button onClick={() => navigate("how")} style={{ fontSize: 12, fontWeight: 600, color: "rgba(255,255,255,0.9)", letterSpacing: "0.06em", textTransform: "uppercase", background: "none", border: "none", borderBottom: "1px solid rgba(255,255,255,0.3)", paddingBottom: 2, cursor: "pointer", fontFamily: UI }}>Apply to join →</button>
+          <a href="/register" style={{ fontSize: 12, fontWeight: 600, color: "rgba(255,255,255,0.9)", letterSpacing: "0.06em", textTransform: "uppercase", background: "none", border: "none", borderBottom: "1px solid rgba(255,255,255,0.3)", paddingBottom: 2, cursor: "pointer", fontFamily: UI, textDecoration: "none" }}>Apply to join →</a>
         </div>
       </div>
     </section>
@@ -479,7 +486,7 @@ function PagePricing({ navigate }: { navigate: (p: Page) => void }) {
                   </li>
                 ))}
               </ul>
-              <a href="#" style={{ display: "block", textAlign: "center", padding: 12, border: card.featured ? "1px solid #fff" : "1px solid rgba(255,255,255,0.25)", background: card.featured ? "#fff" : "transparent", color: card.featured ? "var(--cb-sage)" : "#fff", fontSize: 11, letterSpacing: "0.1em", textTransform: "uppercase", textDecoration: "none", borderRadius: 2, fontFamily: UI, fontWeight: 600 }}>{card.cta}</a>
+              <a href="/register" style={{ display: "block", textAlign: "center", padding: 12, border: card.featured ? "1px solid #fff" : "1px solid rgba(255,255,255,0.25)", background: card.featured ? "#fff" : "transparent", color: card.featured ? "var(--cb-sage)" : "#fff", fontSize: 11, letterSpacing: "0.1em", textTransform: "uppercase", textDecoration: "none", borderRadius: 2, fontFamily: UI, fontWeight: 600 }}>{card.cta}</a>
             </div>
           ))}
         </div>
@@ -494,7 +501,7 @@ function PagePricing({ navigate }: { navigate: (p: Page) => void }) {
               Pay the way<br />Zambia <em style={{ color: "var(--cb-sage)" }}>pays.</em>
             </h2>
             <p style={{ fontSize: 15, fontWeight: 400, color: "var(--cb-ink-light)", maxWidth: 380, lineHeight: 1.8, marginBottom: 32, fontFamily: BODY }}>Mobile money is how families transact. CareBridge supports all major Zambian payment methods — no bank account required.</p>
-            <button onClick={() => navigate("how")} style={{ background: "var(--cb-sage)", color: "#fff", padding: "14px 28px", borderRadius: 2, fontSize: 13, fontWeight: 600, letterSpacing: "0.08em", textTransform: "uppercase", border: "none", cursor: "pointer", fontFamily: UI }}>Get started →</button>
+            <a href="/register" style={{ display: "inline-block", background: "var(--cb-sage)", color: "#fff", padding: "14px 28px", borderRadius: 2, fontSize: 13, fontWeight: 600, letterSpacing: "0.08em", textTransform: "uppercase", border: "none", cursor: "pointer", fontFamily: UI, textDecoration: "none" }}>Get started →</a>
           </div>
           <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
             {[
