@@ -247,8 +247,8 @@ function PageHome({ dark: _dark, navigate }: { dark: boolean; navigate: (p: Page
           </div>
         </div>
         <div className="cb-hero-right" style={{ position: "relative", overflow: "hidden", background: "var(--cb-sage)" }}>
-          <div style={{ position: "absolute", inset: 0, backgroundImage: "url('https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=900&q=80')", backgroundSize: "cover", backgroundPosition: "center", opacity: 0.55 }} />
-          <div style={{ position: "absolute", inset: 0, background: "linear-gradient(135deg,rgba(61,107,79,0.85) 0%,rgba(26,26,24,0.7) 100%)", zIndex: 1 }} />
+          <div style={{ position: "absolute", inset: 0, backgroundImage: "url('/hero-family.jpg')", backgroundSize: "cover", backgroundPosition: "center 30%", opacity: 0.75 }} />
+          <div style={{ position: "absolute", inset: 0, background: "linear-gradient(135deg,rgba(61,107,79,0.7) 0%,rgba(26,26,24,0.5) 100%)", zIndex: 1 }} />
           <div style={{ position: "relative", zIndex: 2, height: "100%", display: "flex", flexDirection: "column", justifyContent: "flex-end", padding: 48 }}>
             <div style={{ background: "var(--cb-card-bg)", borderRadius: 4, padding: "24px 28px", maxWidth: 320 }}>
               <div style={{ fontSize: 11, fontWeight: 500, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--cb-ink-light)", marginBottom: 16, fontFamily: UI }}>Every professional verified by</div>
